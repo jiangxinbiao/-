@@ -1,0 +1,46 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="{% static 'longin/css/style.css' %}" rel='stylesheet' type='text/css' />
+    <script src="{% static 'register/js/jquery.js' %}"></script>
+</head>
+<body>
+<h3>
+<h1>主页组件</h1>
+<ul id="ulul"></ul>
+
+</h3>
+
+<script>
+    window.onload = function (ev) {
+        $.ajax(
+            {
+                type:"GET",
+                dataType:"json",
+                url:"http://localhost:8080/Paintings/Painting/",
+                success:function (data) {
+                    var html = "";
+                    {#alert(data);#}
+                    console.log(data.results);
+                    var result=data.results
+                    for(var i=0;i<result.length;i++){
+                        var  Is = result[i];
+                        html+="<li><a><span>"+Is.name+"</span></a><span>"+Is.text+"</span></li>";
+                    }
+                    $("#ulul").html(html);
+                }
+            }
+        )
+    }
+</script>
+<style>
+    #ulul{
+        background-color: #ffffff;
+
+    }
+</style>
+</body>
+</html>
